@@ -1,0 +1,39 @@
+{
+    "name" : "yarnify",
+    "version" : "0.0.0",
+    "description" : "knit together html, css, and javascript into reusable bundles",
+    "main" : "index.js",
+    "directories" : {
+        "example" : "example",
+        "test" : "test"
+    },
+    "dependencies" : {
+        "findit" : "~0.1.2",
+        "optimist" : "~0.3.4",
+        "jquery-browserify" : "~1.7.2"
+    },
+    "devDependencies" : {
+        "tap" : "~0.2.5"
+    },
+    "scripts" : {
+        "test" : "tap test"
+    },
+    "repository" : {
+        "type" : "git",
+        "url" : "http://github.com/substack/yarnify.git"
+    },
+    "keywords" : [
+        "widget",
+        "bundle",
+        "browserify",
+        "ui",
+        "reuse"
+    ],
+    "author" : {
+        "name" : "James Halliday",
+        "email" : "mail@substack.net",
+        "url" : "http://substack.net"
+    },
+    "license" : "MIT",
+    "engine" : { "node" : ">=0.4" }
+}
