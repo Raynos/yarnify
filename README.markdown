@@ -13,7 +13,7 @@ build a widget
 
 Widgets are just html, css, and javascript.
 
-Just hack up a beep.html:
+Just hack up a widget/beep.html:
 
 ``` html
 <div class="beep">
@@ -22,10 +22,17 @@ Just hack up a beep.html:
 </div>
 ```
 
-then hack up a main.js:
+then bundle all the html in `widget/` into `widget/yarn.js`:
+
+```
+$ cd widget
+$ yarnify knit -o yarn.js
+```
+
+now just `require('./yarn')` in a widget/index.js:
 
 ``` js
-var yarn = require('yarnify')(__dirname);
+var yarn = require('./yarn');
 
 module.exports = function (title) {
     var elem = yarn('./beep.html');
@@ -38,25 +45,47 @@ module.exports = function (title) {
 };
 ```
 
-Bundle up the `main.js` with all the html and css:
-
-```
-$ cd widget
-$ yarnify knit main.js -o index.js
-$ cd ..
-```
-
 Now you can use this widget as a module with browserify!
 
 ``` js
+var $ = require('jquery-browserify');
 var widget = require('./widget');
-var w = widget('robots');
-w.body('in SPACE!');
-w.appendTo(document.body);
+
+$(function () {
+    var w = widget('robots');
+    w.body('in SPACE!');
+    w.appendTo(document.body);
+});
 ```
 
-You can publish your widgets to npm too! Just make a package.json and set the
-"main" to point at the `index.js` or whichever file you wrote the bundle to.
+If you make a nifty reusable widget that other people could benefit from,
+consider releasing it on npm!
+
+usage
+=====
+
+```
+Usage: yarnify [directory] OPTIONS
+
+Generate a yarn output bundle from all the html and css files in [directory].
+
+  OPTIONS
+    -o output file or '-' (default)
+```
+
+methods
+=======
+
+These are the methods you can call on generated yarn bundles.
+
+```
+var yarn = require('./yarn')
+```
+
+yarn(file)
+----------
+
+Return a jquery handle on the html content at `file`.
 
 todo
 ====
@@ -80,17 +109,10 @@ and also re-run the rules on appended elements.
 install
 =======
 
-To install the command-line tool to knit bundles,
-with [npm](http://npmjs.org) do:
+With [npm](http://npmjs.org) do:
 
 ```
 npm install -g yarnify
-```
-
-then to use the bundles, install yarnify into your project with:
-
-```
-npm install yarnify
 ```
 
 license
